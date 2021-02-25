@@ -9,7 +9,7 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.12" />
     <PackageReference Include="NLog" Version="4.7.7" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.0" />
-    <PackageReference Include="xyz.lsyyy.Verification.Extension" Version="0.0.8" />
+    <PackageReference Include="xyz.lsyyy.Verification.Extension" Version="0.2.2" />
   </ItemGroup>
 
 </Project>

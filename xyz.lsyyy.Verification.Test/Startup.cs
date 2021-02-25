@@ -64,6 +64,7 @@ namespace xyz.lsyyy.Verification.Test
 			);
 			app.UseEndpoints(endpoints =>
 			{
+				endpoints.MapPushTagEndpoint();
 				endpoints.MapControllers();
 			});
 		}
