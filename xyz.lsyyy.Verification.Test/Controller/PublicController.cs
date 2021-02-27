@@ -8,7 +8,7 @@ namespace xyz.lsyyy.Verification.Test
 	public class PublicController : ControllerBase
 	{
 		[HttpGet]
-		[AuthorizationTag(Name = "hello world")]
+		[AuthorizationTag(Name = "helloAction")]
 		public object Hello()
 		{
 			return Ok("hello world");

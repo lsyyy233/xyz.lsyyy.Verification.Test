@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using Newtonsoft.Json.Serialization;
 using xyz.lsyyy.Verification.Extension;
 
 namespace xyz.lsyyy.Verification.Test
@@ -18,7 +19,11 @@ namespace xyz.lsyyy.Verification.Test
 		}
 		public void ConfigureServices(IServiceCollection services)
 		{
-			services.AddControllers();
+			services.AddControllers()
+				.AddNewtonsoftJson(option =>
+				{
+					option.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
+				});
 			services.AddVerificationService((s,o) =>
 			{
 				o.Address = new Uri(Configuration.GetValue<string>("VerificationServer"));
@@ -64,7 +69,6 @@ namespace xyz.lsyyy.Verification.Test
 			);
 			app.UseEndpoints(endpoints =>
 			{
-				endpoints.MapPushTagEndpoint();
 				endpoints.MapControllers();
 			});
 		}

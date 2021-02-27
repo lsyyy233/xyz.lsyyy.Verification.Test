@@ -1,4 +1,4 @@
-﻿namespace xyz.lsyyy.Verification.Test.Model.User
+﻿namespace xyz.lsyyy.Verification.Test
 {
 	public class LoginModel
 	{
