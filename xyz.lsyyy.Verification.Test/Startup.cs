@@ -5,8 +5,12 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Linq;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Primitives;
 using Newtonsoft.Json.Serialization;
 using xyz.lsyyy.Verification.Extension;
+using static System.String;
 
 namespace xyz.lsyyy.Verification.Test
 {
@@ -19,24 +23,22 @@ namespace xyz.lsyyy.Verification.Test
 		}
 		public void ConfigureServices(IServiceCollection services)
 		{
+			services.AddDbContext<MyDbContext>(options =>
+			{
+				options
+					.UseLazyLoadingProxies()
+					.UseMySql(Configuration.GetConnectionString("DefaultDataBase"));
+			});
 			services.AddControllers()
 				.AddNewtonsoftJson(option =>
 				{
 					option.SerializerSettings.ContractResolver = new CamelCasePropertyNamesContractResolver();
 				});
-			services.AddVerificationService((s,o) =>
+			services.AddVerificationService((s, o) =>
 			{
 				o.Address = new Uri(Configuration.GetValue<string>("VerificationServer"));
 			});
 			services.AddLogging();
-			services.AddDistributedMemoryCache();
-			services.AddSession(options =>
-			{
-				options.IdleTimeout = TimeSpan.FromMinutes(5);
-				options.Cookie.HttpOnly = true;
-				options.Cookie.IsEssential = true;
-				options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-			});
 			services.AddRouting(x =>
 			{
 				x.LowercaseQueryStrings = true;
@@ -63,9 +65,15 @@ namespace xyz.lsyyy.Verification.Test
 			}
 			app.UseStaticFiles();
 			app.UseRouting();
-			app.UseSession();
-			app.UseVerificationMiddleware((context,serviceProvider) =>
-				context.Session.GetString("UserId")
+			app.UseVerificationMiddleware((context, serviceProvider) =>
+				{
+					//context.Session.GetString("Token")
+					if (context.Request.Headers.TryGetValue("Token", out StringValues token))
+					{
+						return token.FirstOrDefault();
+					}
+					return Empty;
+				}
 			);
 			app.UseEndpoints(endpoints =>
 			{

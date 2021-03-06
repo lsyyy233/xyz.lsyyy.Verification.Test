@@ -8,6 +8,6 @@ namespace xyz.lsyyy.Verification
 
 		public string Password { get; set; }
 
-		public Guid PositionId { get; set; }
+		public int PositionId { get; set; }
 	}
 }

@@ -1,6 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-namespace xyz.lsyyy.Verification.Test.Data
+namespace xyz.lsyyy.Verification.Test
 {
 	public class MyDbContext : DbContext
 	{

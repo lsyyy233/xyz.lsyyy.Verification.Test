@@ -7,9 +7,11 @@
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.12" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.12" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Proxies" Version="3.1.12" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.12" />
     <PackageReference Include="NLog.Extensions.Logging" Version="1.7.1" />
-    <PackageReference Include="xyz.lsyyy.Verification.Extension" Version="0.4.2" />
+    <PackageReference Include="Pomelo.EntityFrameworkCore.MySql" Version="3.2.4" />
+    <PackageReference Include="xyz.lsyyy.Verification.Extension" Version="0.5.4" />
   </ItemGroup>
 
 </Project>
